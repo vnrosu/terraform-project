@@ -42,3 +42,23 @@ variable "key_name" {
   description = "name of the ssh key"
   type        = string
 }
+
+variable "lights_ami_id" {
+  type        = string
+  description = "AMI ID for lighting instances"
+}
+
+variable "heating_ami_id" {
+  type        = string
+  description = "AMI ID for heating instances"
+}
+
+variable "auth_ami_id" {
+  type        = string
+  description = "AMI ID for authentication instances"
+}
+
+variable "status_ami_id" {
+  type        = string
+  description = "AMI ID for status monitoring instances"
+}

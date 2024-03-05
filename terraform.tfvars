@@ -15,3 +15,11 @@ hash_key_type = "N"
 instance_type = "t2.micro"
 
 key_name = "aws key"
+
+lights_ami_id = "ami-080d302c4d9682c9e"
+
+heating_ami_id = "ami-0d4e50e145da85d61"
+
+status_ami_id = "ami-024a42572fb7b5412"
+
+auth_ami_id = "ami-099f71fafeedcc526"
