@@ -81,3 +81,57 @@ module "load-balancers" {
   auth_instance_id           = module.auth_instance.id
   status_instance_id         = module.status_instance.id
 }
+
+#Creates 4 autoscaling groups
+module "autoscaling-lights" {
+  source                      = "./modules/autoscaling"
+  instance_name               = "lights-as"
+  launch_template_name        = "lights_template"
+  associate_public_ip_address = true
+  instance_type               = var.instance_type
+  image_id                    = var.lights_ami_id
+  key_name                    = var.key_name
+  security_group_ids          = module.security.security_group_ids
+  subnet_ids                  = module.vpc.public_subnets
+  target_group_arn            = module.load-balancers.lights_target_group_arn
+}
+
+module "autoscaling-heating" {
+  source                      = "./modules/autoscaling"
+  instance_name               = "heating-as"
+  launch_template_name        = "heating_template"
+  associate_public_ip_address = true
+  instance_type               = var.instance_type
+  image_id                    = var.heating_ami_id
+  key_name                    = var.key_name
+  security_group_ids          = module.security.security_group_ids
+  subnet_ids                  = module.vpc.public_subnets
+  target_group_arn            = module.load-balancers.heating_target_group_arn
+}
+
+module "autoscaling-status" {
+  source                      = "./modules/autoscaling"
+  instance_name               = "status-as"
+  launch_template_name        = "status_template"
+  associate_public_ip_address = true
+  instance_type               = var.instance_type
+  image_id                    = var.status_ami_id
+  key_name                    = var.key_name
+  security_group_ids          = module.security.security_group_ids
+  subnet_ids                  = module.vpc.public_subnets
+  target_group_arn            = module.load-balancers.status_target_group_arn
+}
+
+module "autoscaling-auth" {
+  source                      = "./modules/autoscaling"
+  instance_name               = "auth-as"
+  launch_template_name        = "auth_template"
+  associate_public_ip_address = false
+  instance_type               = var.instance_type
+  image_id                    = var.auth_ami_id
+  key_name                    = var.key_name
+  security_group_ids          = module.security.private_security_group_ids
+  subnet_ids                  = module.vpc.private_subnets
+  target_group_arn            = module.load-balancers.auth_target_group_arn
+}
+
