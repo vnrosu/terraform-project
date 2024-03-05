@@ -1,5 +1,5 @@
 #Creates a VPC
-module "network" {
+module "vpc" {
   source             = "./modules/vpc"
   vpc_name           = var.vpc_name
   cidr_range         = var.cidr_range
@@ -12,10 +12,10 @@ module "network" {
 #Creates the security groups needed
 module "security" {
   source = "./modules/security"
-  vpc_id = module.network.vpc_id
+  vpc_id = module.vpc.vpc_id
 }
 
-#Creates the dynamodbs required
+#Creates the 2 dynamodbs required
 module "lighting_table" {
   source        = "./modules/dynamodb"
   table_name    = "Lighting"
@@ -29,3 +29,39 @@ module "heating_table" {
   hash_key      = var.hash_key
   hash_key_type = var.hash_key_type
 }
+
+#Creates the 4 instances
+module "lighting_instance" {
+  source             = "./modules/servers"
+  instance_type      = var.instance_type
+  subnet_id          = module.vpc.public_subnets[0]
+  security_group_ids = module.security.security_group_ids
+  instance_name      = "lighting"
+}
+
+
+module "heating_instance" {
+  source             = "./modules/servers"
+  instance_type      = var.instance_type
+  subnet_id          = module.vpc.public_subnets[1]
+  security_group_ids = module.security.security_group_ids
+  instance_name      = "heating"
+}
+
+module "status_instance" {
+  source             = "./modules/servers"
+  instance_type      = var.instance_type
+  subnet_id          = module.vpc.public_subnets[2]
+  security_group_ids = module.security.security_group_ids
+  instance_name      = "status"
+}
+
+module "auth_instance" {
+  source             = "./modules/servers"
+  instance_type      = var.instance_type
+  subnet_id          = module.vpc.private_subnets[0]
+  security_group_ids = module.security.private_security_group_ids
+  instance_name      = "auth"
+}
+
+
