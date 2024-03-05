@@ -37,6 +37,7 @@ module "lighting_instance" {
   subnet_id          = module.vpc.public_subnets[0]
   security_group_ids = module.security.security_group_ids
   instance_name      = "lighting"
+  key_name           = var.key_name
 }
 
 
@@ -46,6 +47,7 @@ module "heating_instance" {
   subnet_id          = module.vpc.public_subnets[1]
   security_group_ids = module.security.security_group_ids
   instance_name      = "heating"
+  key_name           = var.key_name
 }
 
 module "status_instance" {
@@ -54,6 +56,7 @@ module "status_instance" {
   subnet_id          = module.vpc.public_subnets[2]
   security_group_ids = module.security.security_group_ids
   instance_name      = "status"
+  key_name           = var.key_name
 }
 
 module "auth_instance" {
@@ -62,6 +65,19 @@ module "auth_instance" {
   subnet_id          = module.vpc.private_subnets[0]
   security_group_ids = module.security.private_security_group_ids
   instance_name      = "auth"
+  key_name           = var.key_name
 }
 
-
+#Creates 2 load balancers
+module "load-balancers" {
+  source                     = "./modules/load balancers"
+  public_security_group_ids  = module.security.security_group_ids
+  private_security_group_ids = module.security.private_security_group_ids
+  vpc_id                     = module.vpc.vpc_id
+  public_subnet_ids          = module.vpc.public_subnets
+  private_subnet_ids         = module.vpc.private_subnets
+  lighting_instance_id       = module.lighting_instance.id
+  heating_instance_id        = module.heating_instance.id
+  auth_instance_id           = module.auth_instance.id
+  status_instance_id         = module.status_instance.id
+}

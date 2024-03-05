@@ -1,31 +1,31 @@
 variable "vpc_name" {
-  type        = string
   description = "VPC name"
+  type        = string
 }
 
 variable "cidr_range" {
-  type        = string
   description = "CIDR block range used for the VPC"
+  type        = string
 }
 
 variable "availability_zones" {
-  type        = list(string)
   description = "availability zones required for the VPC"
+  type        = list(string)
 }
 
 variable "public_subnets" {
-  type        = list(string)
   description = "public subnets CIDR blocks"
+  type        = list(string)
 }
 
 variable "private_subnets" {
-  type        = list(string)
   description = "private subnets CIDR blocks"
+  type        = list(string)
 }
 
 variable "hash_key" {
-  type        = string
   description = "hash key (partition key) of the DynamoDB table"
+  type        = string
 }
 
 variable "hash_key_type" {
@@ -34,7 +34,11 @@ variable "hash_key_type" {
 }
 
 variable "instance_type" {
-  description = "type of instace"
+  description = "type of instance"
   type        = string
+}
 
+variable "key_name" {
+  description = "name of the ssh key"
+  type        = string
 }
