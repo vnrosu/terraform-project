@@ -32,3 +32,9 @@ variable "hash_key_type" {
   description = "data type of the hash key"
   type        = string
 }
+
+variable "instance_type" {
+  description = "type of instace"
+  type        = string
+
+}

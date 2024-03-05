@@ -11,3 +11,5 @@ private_subnets = ["10.0.10.0/24", "10.0.11.0/24", "10.0.12.0/24"]
 hash_key = "id"
 
 hash_key_type = "N"
+
+instance_type = "t2.micro"

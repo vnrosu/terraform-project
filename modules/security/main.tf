@@ -117,3 +117,19 @@ resource "aws_vpc_security_group_ingress_rule" "ssh" {
   to_port           = 22
   description       = "allows ssh incoming only from the machine this code is executed on"
 }
+
+#Create ssh traffic security group
+resource "aws_security_group" "private_ssh" {
+  name        = "private_ssh"
+  description = "Security group for incoming ssh on a private instance"
+  vpc_id      = var.vpc_id
+}
+
+resource "aws_vpc_security_group_ingress_rule" "ssh_private" {
+  security_group_id = aws_security_group.private_ssh.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+  description       = "allows ssh incoming from any ip"
+}
