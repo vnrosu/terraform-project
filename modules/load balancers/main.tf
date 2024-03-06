@@ -38,7 +38,7 @@ resource "aws_lb_target_group" "lights" {
   protocol = "HTTP"
   vpc_id   = var.vpc_id
   health_check {
-    path                = "/api/lights"
+    path                = "/api/lights/health"
     protocol            = "HTTP"
     interval            = 20
     timeout             = 10
