@@ -12,6 +12,10 @@ hash_key = "id"
 
 hash_key_type = "N"
 
+auth_hash_key = "username"
+
+auth_hash_key_type = "S"
+
 instance_type = "t2.micro"
 
 key_name = "aws key"
@@ -22,4 +26,4 @@ heating_ami_id = "ami-0d4e50e145da85d61"
 
 status_ami_id = "ami-024a42572fb7b5412"
 
-auth_ami_id = "ami-099f71fafeedcc526"
+auth_ami_id = "ami-068f3dd7a002532ee"

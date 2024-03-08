@@ -33,6 +33,15 @@ variable "hash_key_type" {
   type        = string
 }
 
+variable "auth_hash_key" {
+  description = "hash key (partition key) of the Auth DynamoDB table"
+  type        = string
+}
+
+variable "auth_hash_key_type" {
+  description = "data type of the auth hash key"
+  type        = string
+}
 variable "instance_type" {
   description = "type of instance"
   type        = string

@@ -15,7 +15,7 @@ module "security" {
   vpc_id = module.vpc.vpc_id
 }
 
-#Creates the 2 dynamodbs required
+#Creates the 3 dynamodbs required
 module "lighting_table" {
   source        = "./modules/dynamodb"
   table_name    = "Lighting"
@@ -28,6 +28,13 @@ module "heating_table" {
   table_name    = "Heating"
   hash_key      = var.hash_key
   hash_key_type = var.hash_key_type
+}
+
+module "auth_table" {
+  source        = "./modules/dynamodb"
+  table_name    = "Auth"
+  hash_key      = var.auth_hash_key
+  hash_key_type = var.auth_hash_key_type
 }
 
 #Creates the 4 instances
