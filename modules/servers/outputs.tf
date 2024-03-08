@@ -1,4 +1,3 @@
 output "id" {
-  value = aws_instance.lighting_instance.id
-
+  value = aws_instance.instance.id
 }
